@@ -1,0 +1,1 @@
+./Debug/ArrayBag.cpp.o ./Debug/LinkedBag.cpp.o ./Debug/main.cpp.o ./Debug/Node.cpp.o   
