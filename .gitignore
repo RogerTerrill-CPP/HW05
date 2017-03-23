@@ -79,3 +79,5 @@ $RECYCLE.BIN/
 *.lnk
 HW05.mk
 *.mk
+*.project
+HW05.mk

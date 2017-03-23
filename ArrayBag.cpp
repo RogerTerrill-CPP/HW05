@@ -126,8 +126,6 @@ BagInterface<ItemType>* ArrayBag<ItemType>::combine(BagInterface<ItemType>* aBag
 {
 	vector<ItemType> items1 = aBag->toVector();
 	vector<ItemType> items2 = this->toVector();
-	cout << items2.size() << endl;
-	cout << items1.size() << endl;
 	
 	BagInterface<ItemType>* newBag = new ArrayBag<ItemType>();
 
@@ -158,21 +156,26 @@ BagInterface<ItemType>* ArrayBag<ItemType>::diff(BagInterface<ItemType>* aBag) c
 	
 	BagInterface<ItemType>* newBag = new ArrayBag<ItemType>();
 
-	for(unsigned int i=0; i<items2.size();i++)
+	if(!aBag->isEmpty() && !this->isEmpty())
 	{
-		if(!aBag->contains(items2[i]))
+		for(unsigned int i=0; i<items1.size();i++)
 		{
-			newBag->add(items2[i]);
+			for(unsigned int j=0; j<items2.size();j++)
+			{
+				if(items1[i] == items2[j])
+				{
+					items1.erase(items1.begin()+i); 
+					items2.erase(items2.begin()+j);
+					i=0;
+					j=0;
+				}
+			}
 		}
 	}
 	for(unsigned int i=0; i<items1.size();i++)
 	{
-		if(!this->contains(items1[i]))
-		{
-			newBag->add(items1[i]);
-		}
+		newBag->add(items1[i]);
 	}
-
 	return newBag;
 }
 
@@ -191,10 +194,12 @@ BagInterface<ItemType>* ArrayBag<ItemType>::intersection(BagInterface<ItemType>*
 		{
 			for(unsigned int j=0; j<items2.size();j++)
 			{
-				if(items1[i] == items2[j] /*&& !newBag->contains(items1[i])*/)
+				if(items1[i] == items2[j])
 				{
 					newBag->add(items1[i]);
-					i++;
+					items1.erase(items1.begin()+i);
+					items2.erase(items2.begin()+j);
+					i=0;
 					j=0;
 				}
 			}

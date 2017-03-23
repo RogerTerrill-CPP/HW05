@@ -254,40 +254,8 @@ BagInterface<ItemType>* LinkedBag<ItemType>::combine(BagInterface<ItemType>* aBa
 template<class ItemType>
 BagInterface<ItemType>* LinkedBag<ItemType>::diff(BagInterface<ItemType>* aBag) const
 {
-	vector<ItemType> items1 = aBag->toVector();
-	vector<ItemType> items2 = this->toVector();
-	
-	BagInterface<ItemType>* newBag = new LinkedBag<ItemType>();
-
-	if(!aBag->isEmpty() && !this->isEmpty())
-	{
-		for(unsigned int i=0; i<items2.size();i++)
-		{
-			if(!aBag->contains(items2[i]))
-			{
-				newBag->add(items2[i]);
-			}
-		}
-		
-		//Problem here with extra value***********************************************
-		for(unsigned int i=0; i<items1.size();i++)
-		{
-			if(!this->contains(items1[i]))
-			{
-				newBag->add(items1[i]);
-			}
-		}
-		//*******************************************************************************
-	}
-	return newBag;
-}
-
-
-template<class ItemType>
-BagInterface<ItemType>* LinkedBag<ItemType>::intersection(BagInterface<ItemType>* aBag) const
-{
-	vector<ItemType> items1 = aBag->toVector();
-	vector<ItemType> items2 = this->toVector();
+	vector<ItemType> items1 = this->toVector();
+	vector<ItemType> items2 = aBag->toVector();
 	
 	BagInterface<ItemType>* newBag = new LinkedBag<ItemType>();
 
@@ -297,9 +265,51 @@ BagInterface<ItemType>* LinkedBag<ItemType>::intersection(BagInterface<ItemType>
 		{
 			for(unsigned int j=0; j<items2.size();j++)
 			{
-				if(items1[i] == items2[j] && !newBag->contains(items1[i]))
+				cout << "|items1["<<i<<"]" << items1[i] << "|" << endl;
+				cout << "|items2["<<j<<"]" << items2[j] << "|" << endl;
+				if(items1[i] == items2[j])
+				{
+					cout << "||" << items1[i] << "||" << endl;
+					items1.erase(items1.begin()+i);
+					items2.erase(items2.begin()+j);
+					i=0;
+					j=-1;
+				}
+				
+			}
+		}
+	}
+	for(unsigned int i=0; i<items1.size();i++)
+	{
+		cout << "**" << items1[i] << "**" << endl;
+		newBag->add(items1[i]);
+	}
+	return newBag;
+}
+
+
+template<class ItemType>
+BagInterface<ItemType>* LinkedBag<ItemType>::intersection(BagInterface<ItemType>* aBag) const
+{
+	vector<ItemType> items1 = this->toVector();
+	vector<ItemType> items2 = aBag->toVector();
+	
+	
+	BagInterface<ItemType>* newBag = new LinkedBag<ItemType>();
+
+	if(!aBag->isEmpty() && !this->isEmpty())
+	{
+		for(unsigned int i=0; i<items1.size();i++)
+		{
+			for(unsigned int j=0; j<items2.size();j++)
+			{
+				if(items1[i] == items2[j])
 				{
 					newBag->add(items1[i]);
+					items1.erase(items1.begin()+i);
+					items2.erase(items2.begin()+j);
+					i=0;
+					j=-1;
 				}
 			}
 		}

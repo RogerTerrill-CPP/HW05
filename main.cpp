@@ -29,17 +29,17 @@ void displayBag(BagInterface<string>* bagPtr)
 void bagTester(BagInterface<string>* bagPtr1, BagInterface<string>* bagPtr2)
 {
    
-   string items1[] = {"a", "b", "c"};
-   string items2[] = {"b", "b", "d", "e"};
+   //string items1[] = {"a", "b", "b", "b"};
+   //string items2[] = {"b", "b", "d", "e"};
    
-   /*string items1[] = {"one", "six", "three", "four", "five", "one", "three"};
-   string items2[] = {"one", "two", "three", "four", "five", "three"};*/
-   for (int i = 0; i < 3; i++)
+   string items1[] = {"one", "six", "three", "four", "five", "one", "three"};
+   string items2[] = {"one", "two", "three", "four", "five", "three"};
+   for (int i = 0; i < 7; i++)
    {
       bagPtr1->add(items1[i]);
    }  // end for
    
-   for (int i = 0; i < 4; i++)
+   for (int i = 0; i < 6; i++)
    {
       bagPtr2->add(items2[i]);
    }  // end forA
@@ -95,7 +95,7 @@ int main()
 	cout << endl << "#########DISPLAYING diff...." << endl;//Added
  	displayBag(bagPtr3);
 
-	bagPtr3 = bagPtr1 -> intersection(bagPtr2);
+	bagPtr3 = bagPtr1->intersection(bagPtr2);
 	cout << endl << "#########DISPLAYING intersection...." << endl;//Added
  	displayBag(bagPtr3);
 
