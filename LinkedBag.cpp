@@ -265,23 +265,18 @@ BagInterface<ItemType>* LinkedBag<ItemType>::diff(BagInterface<ItemType>* aBag) 
 		{
 			for(unsigned int j=0; j<items2.size();j++)
 			{
-				cout << "|items1["<<i<<"]" << items1[i] << "|" << endl;
-				cout << "|items2["<<j<<"]" << items2[j] << "|" << endl;
 				if(items1[i] == items2[j])
 				{
-					cout << "||" << items1[i] << "||" << endl;
-					items1.erase(items1.begin()+i);
+					items1.erase(items1.begin()+i); 
 					items2.erase(items2.begin()+j);
 					i=0;
 					j=-1;
 				}
-				
 			}
 		}
 	}
 	for(unsigned int i=0; i<items1.size();i++)
 	{
-		cout << "**" << items1[i] << "**" << endl;
 		newBag->add(items1[i]);
 	}
 	return newBag;

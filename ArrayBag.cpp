@@ -167,7 +167,7 @@ BagInterface<ItemType>* ArrayBag<ItemType>::diff(BagInterface<ItemType>* aBag) c
 					items1.erase(items1.begin()+i); 
 					items2.erase(items2.begin()+j);
 					i=0;
-					j=0;
+					j=-1;
 				}
 			}
 		}
@@ -200,7 +200,7 @@ BagInterface<ItemType>* ArrayBag<ItemType>::intersection(BagInterface<ItemType>*
 					items1.erase(items1.begin()+i);
 					items2.erase(items2.begin()+j);
 					i=0;
-					j=0;
+					j=-1;
 				}
 			}
 		}
