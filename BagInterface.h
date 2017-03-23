@@ -55,18 +55,35 @@ public:
     @return  A vector containing all the entries in the bag. */
    virtual vector<ItemType> toVector() const = 0;
 
-   /* comment this method - describe what it does, its parameter(s)
-      its return any pre-conditions and/or postconditions */
+	/*******************************************************
+	Description     :   Will combine contents of both bags including duplicates into a single bag
+	Arguments       :   BagInterface<ItemType>* aBag
+	Returns         :   BagInterface<ItemType>*
+	Precondition    :   A valid BagInterface pointer object
+	Postcondition   :   BagInteface pointer object with combined object elements
+	*******************************************************/
    virtual BagInterface<ItemType>* combine( BagInterface<ItemType>* aBag)
    const = 0;
    
-   /* comment this method - describe what it does, its parameter(s)
-      its return any pre-conditions and/or postconditions */
+	/*******************************************************
+	Description     :   Will show only items that are different in both bags
+	Arguments       :   BagInterface<ItemType>* aBag
+	Returns         :   BagInterface<ItemType>*
+	Precondition    :   A valid BagInterface pointer object
+	Postcondition   :   BagInteface pointer object that points to a bag with only elements
+					:	that are not shared by both bags.
+	*******************************************************/
    virtual BagInterface<ItemType>* diff( BagInterface<ItemType>* aBag)
    const = 0;
    
-	/* comment this method - describe what it does, its parameter(s)
-       its return any pre-conditions and/or postconditions */
+	/*******************************************************
+	Description     :   Elements that are shared by both bags are returned, no duplicates
+	Arguments       :   BagInterface<ItemType>* aBag
+	Returns         :   BagInterface<ItemType>*
+	Precondition    :   A valid BagInterface pointer object
+	Postcondition   :   BagInteface pointer object with elements that are shared with
+					:	both bags, no duplicates
+	*******************************************************/
    virtual BagInterface<ItemType>* intersection( BagInterface<ItemType>* aBag)
    const = 0;
 }; // end BagInterface

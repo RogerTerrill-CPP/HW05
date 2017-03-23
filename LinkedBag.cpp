@@ -4,6 +4,8 @@
 
 #include "LinkedBag.h"
 #include "Node.h"
+#include <iostream>
+using namespace std;
 #include <cstddef>
 
 template<class ItemType>
@@ -225,23 +227,82 @@ Node<ItemType>* LinkedBag<ItemType>::getPointerTo(const ItemType& anEntry) const
 template<class ItemType>
 BagInterface<ItemType>* LinkedBag<ItemType>::combine(BagInterface<ItemType>* aBag) const
 {
-	//BagInterface<ItemType>* returnBag = new LinkedBag<ItemType>;
-        //return returnBag;
-        return aBag;
+	vector<ItemType> items1 = aBag->toVector();
+	vector<ItemType> items2 = this->toVector();
+	
+	BagInterface<ItemType>* newBag = new LinkedBag<ItemType>();
+
+	if(!aBag->isEmpty())
+	{
+		for(unsigned int i=0; i < items1.size();i++)
+		{
+			newBag->add(items1[i]);
+		}
+	}
+	
+	if(!this->isEmpty())
+	{
+		for(unsigned int i=0; i < items2.size();i++)
+		{
+			newBag->add(items2[i]);
+		}
+	}
+	
+	return newBag;
 }
 
 template<class ItemType>
 BagInterface<ItemType>* LinkedBag<ItemType>::diff(BagInterface<ItemType>* aBag) const
 {
-	//BagInterface<ItemType>* returnBag = new LinkedBag<ItemType>;
-        //return returnBag;
-        return aBag;
+	vector<ItemType> items1 = aBag->toVector();
+	vector<ItemType> items2 = this->toVector();
+	
+	BagInterface<ItemType>* newBag = new LinkedBag<ItemType>();
+
+	if(!aBag->isEmpty() && !this->isEmpty())
+	{
+		for(unsigned int i=0; i<items2.size();i++)
+		{
+			if(!aBag->contains(items2[i]))
+			{
+				newBag->add(items2[i]);
+			}
+		}
+		
+		//Problem here with extra value***********************************************
+		for(unsigned int i=0; i<items1.size();i++)
+		{
+			if(!this->contains(items1[i]))
+			{
+				newBag->add(items1[i]);
+			}
+		}
+		//*******************************************************************************
+	}
+	return newBag;
 }
+
 
 template<class ItemType>
 BagInterface<ItemType>* LinkedBag<ItemType>::intersection(BagInterface<ItemType>* aBag) const
 {
-	//BagInterface<ItemType>* returnBag = new LinkedBag<ItemType>;
-        //return returnBag;
-        return aBag;
+	vector<ItemType> items1 = aBag->toVector();
+	vector<ItemType> items2 = this->toVector();
+	
+	BagInterface<ItemType>* newBag = new LinkedBag<ItemType>();
+
+	if(!aBag->isEmpty() && !this->isEmpty())
+	{
+		for(unsigned int i=0; i<items1.size();i++)
+		{
+			for(unsigned int j=0; j<items2.size();j++)
+			{
+				if(items1[i] == items2[j] && !newBag->contains(items1[i]))
+				{
+					newBag->add(items1[i]);
+				}
+			}
+		}
+	}
+	return newBag;
 }

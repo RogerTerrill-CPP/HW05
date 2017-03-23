@@ -126,6 +126,8 @@ BagInterface<ItemType>* ArrayBag<ItemType>::combine(BagInterface<ItemType>* aBag
 {
 	vector<ItemType> items1 = aBag->toVector();
 	vector<ItemType> items2 = this->toVector();
+	cout << items2.size() << endl;
+	cout << items1.size() << endl;
 	
 	BagInterface<ItemType>* newBag = new ArrayBag<ItemType>();
 
@@ -151,36 +153,35 @@ BagInterface<ItemType>* ArrayBag<ItemType>::combine(BagInterface<ItemType>* aBag
 template<class ItemType>
 BagInterface<ItemType>* ArrayBag<ItemType>::diff(BagInterface<ItemType>* aBag) const
 {
-	vector<ItemType> items1 = aBag->toVector();
-	vector<ItemType> items2 = this->toVector();
+	vector<ItemType> items1 = this->toVector();
+	vector<ItemType> items2 = aBag->toVector();
 	
 	BagInterface<ItemType>* newBag = new ArrayBag<ItemType>();
 
-	if(!aBag->isEmpty() && !this->isEmpty())
+	for(unsigned int i=0; i<items2.size();i++)
 	{
-		for(unsigned int i=0; i<items1.size();i++)
+		if(!aBag->contains(items2[i]))
 		{
-			if(!aBag->contains(items2[i]))
-			{
-				newBag->add(items2[i]);
-			}
-		}
-		for(unsigned int i=0; i<items2.size();i++)
-		{
-			if(!this->contains(items1[i]))
-			{
-				newBag->add(items1[i]);
-			}
+			newBag->add(items2[i]);
 		}
 	}
+	for(unsigned int i=0; i<items1.size();i++)
+	{
+		if(!this->contains(items1[i]))
+		{
+			newBag->add(items1[i]);
+		}
+	}
+
 	return newBag;
 }
 
 template<class ItemType>
 BagInterface<ItemType>* ArrayBag<ItemType>::intersection(BagInterface<ItemType>* aBag) const
 {
-	vector<ItemType> items1 = aBag->toVector();
-	vector<ItemType> items2 = this->toVector();
+	vector<ItemType> items1 = this->toVector();
+	vector<ItemType> items2 = aBag->toVector();
+	
 	
 	BagInterface<ItemType>* newBag = new ArrayBag<ItemType>();
 
@@ -190,9 +191,11 @@ BagInterface<ItemType>* ArrayBag<ItemType>::intersection(BagInterface<ItemType>*
 		{
 			for(unsigned int j=0; j<items2.size();j++)
 			{
-				if(items1[i] == items2[j] && !newBag->contains(items1[i]))
+				if(items1[i] == items2[j] /*&& !newBag->contains(items1[i])*/)
 				{
 					newBag->add(items1[i]);
+					i++;
+					j=0;
 				}
 			}
 		}
